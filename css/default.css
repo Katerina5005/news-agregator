@@ -71,7 +71,7 @@ h1, h2, h3, p {
 }
 
 .container {
-    max-width: 12000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding-left: 30px;
     padding-right: 30px;
