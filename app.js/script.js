@@ -48,7 +48,7 @@ const getImage = url => new Promise((resolve) => {
 
     image.addEventListener('error', () => {
         image.src = 'image/nophoto.jpg';
-        resolve(image);
+         resolve(image);
     });
     
     image.src = url || 'image/nophoto.jpg';
