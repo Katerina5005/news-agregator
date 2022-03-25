@@ -36,15 +36,24 @@ const getDateCorrectFormat = isoDate => {
     return `<span class="news-date">${fullDate}</span> ${fullTime}`
 }
 
+
+const getImage = url => {
+    const image = document.createElement('img');
+    image.src = 'image/nophoto.jpg'
+
+    return image;
+}
+
 const renderCard = (data) => {
     newsList.textContent = '';
     data.forEach(({urlToImage, title, url, description, publishedAt, author }) => {
         const card = document.createElement('li');
         card.className = 'news-items';
 
-        card.innerHTML = `
-            <img src="${urlToImage}" alt="${title}" class="news-img" width="270" height="200">
+        const image = getImage(urlToImage);
+        card.append(image);
 
+        card.insertAdjacentHTML('beforeend',  `
             <h3 class="news-title">
                 <a href="${url}" class="news-link" target="_blank">${title || ''}</a>
             </h3>
@@ -56,7 +65,7 @@ const renderCard = (data) => {
                 </time>
                 <div class="news-autor">${author || ''}</div>
             </div>
-        `;
+         `);
 
         newsList.append(card);
     })
