@@ -1,3 +1,5 @@
+const { resolveInclude } = require("ejs");
+
 const API_KEY = 'd96c320e2d464160bfee15cf0ad53918';
 const choicesElem = document.querySelector('.js-choice');
 const newsList = document.querySelector('.news-list');
@@ -37,23 +39,35 @@ const getDateCorrectFormat = isoDate => {
 }
 
 
-const getImage = url => {
-    const image = document.createElement('img');
-    image.src = 'image/nophoto.jpg'
+const getImage = url => new Promise((resolve) => {
+    const image = new Image(270, 200);
+    
+    image.addEventListener('load', () => {
+        resolve(image);
+    });
 
+    image.addEventListener('error', () => {
+        image.src = 'image/nophoto.jpg';
+        resolve(image);
+    });
+    
+    image.src = url || 'image/nophoto.jpg';
+    image.className = 'news-image';
+    
     return image;
-}
+})
 
 const renderCard = (data) => {
     newsList.textContent = '';
-    data.forEach(({urlToImage, title, url, description, publishedAt, author }) => {
+    data.forEach(async ({urlToImage, title, url, description, publishedAt, author }) => {
         const card = document.createElement('li');
         card.className = 'news-items';
 
-        const image = getImage(urlToImage);
+        const image = await getImage(urlToImage);
+        image.alt = title;
         card.append(image);
 
-        card.insertAdjacentHTML('beforeend',  `
+        card.insertAdjacentHTML('beforeend', `
             <h3 class="news-title">
                 <a href="${url}" class="news-link" target="_blank">${title || ''}</a>
             </h3>
