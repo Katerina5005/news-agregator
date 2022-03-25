@@ -87,3 +87,7 @@ input[type="search"]::-webkit-search-cancel-buttom {
         padding-right: 15px;
     }
 }
+
+.hide {
+    display: none;
+}
