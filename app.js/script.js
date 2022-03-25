@@ -36,7 +36,7 @@ const renderCard = (data) => {
                     <span class="news-date">${news.publishedAt}</span> 11:06
                 </time>
                 <div class="news-autor">${news.author}</div>
-                </div>
+            </div>
         `;
 
         newsList.append(card);
@@ -45,7 +45,7 @@ const renderCard = (data) => {
 
 const loadNews = async() => {
     const data = await getdata('https://newsapi.org/v2/top-headlines?country=ru');
-    renderCard(data);
+    renderCard(data.articles);
 };
 
 loadNews()
